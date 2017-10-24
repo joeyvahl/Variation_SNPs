@@ -5,6 +5,11 @@ date: "10/24/2017"
 output: html_document
 ---
 
+
+```{r load-packages}
+library("ggplot2")
+```
+
 # Load in data
 ```{r load-data}
 data <- read.csv("data/Dataset_S1.txt")
@@ -14,7 +19,14 @@ head(data)
 
 # Plot data
 ```{r plot-GC}
-#Rename GC column
+# Rename GC column
 colnames(data)[12] <- "percent.GC"
+
+# Bin data into 5 bins
+data$GC.binned <- cut(data$percent.GC, 5)
+
+# Plot it
+ggplot(data) + geom_bar(aes(x = GC.binned))
+
 ```
 
